@@ -42,7 +42,8 @@ public class LoginCheckFilter implements Filter {
           "/employee/login" ,
           "/employee/logout",
           "/backend/**",
-          "/front/**"
+          "/front/**",
+                "/common/**"
         }; //通配符不好匹配
 
         // 3、如果不需要处理，则直接放行
