@@ -103,4 +103,23 @@ public class DishController {
 
         return R.success("更新口味成功");
     }
+
+    /**
+     * 根据条件查询对应菜品信息
+     * @param dish
+     * @return
+     */
+    @GetMapping("/list")
+    public R<List<Dish>> list( Dish dish){
+        LambdaQueryWrapper<Dish> lambdaQueryWrapper =new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(dish.getCategoryId()!=null,Dish::getCategoryId,dish.getCategoryId());
+        //起售状态
+        lambdaQueryWrapper.eq(Dish::getStatus,1);
+        //排序条件
+        lambdaQueryWrapper.orderByAsc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
+
+        List<Dish> list = dishService.list(lambdaQueryWrapper);
+
+        return R.success(list);
+    }
 }
